@@ -1,0 +1,40 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Welcome Back</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-content class="ion-padding">
+    <form (ngSubmit)="login()">
+      <ion-item>
+        <ion-label position="floating">Email</ion-label>
+        <ion-input
+          type="email"
+          [(ngModel)]="email"
+          name="email"
+          aria-label="email"
+          required
+        ></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">Password</ion-label>
+        <ion-input
+          type="password"
+          [(ngModel)]="password"
+          name="password"
+          aria-label="password"
+          required
+        ></ion-input>
+      </ion-item>
+
+      <ion-button type="submit" expand="block">Login</ion-button>
+    </form>
+
+    <ion-button class="signup-button" expand="block" (click)="goToSignupPage()">Sign Up</ion-button>
+    <ion-button expand="block" (click)="forgotPassword()"
+      >Forgot Password?</ion-button
+    >
+  </ion-content>
+</ion-content>

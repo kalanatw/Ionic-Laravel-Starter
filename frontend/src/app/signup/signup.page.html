@@ -1,0 +1,59 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title size="large">signup</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Create Account</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <form (ngSubmit)="signup()">
+    <ion-item>
+      <ion-label position="floating">Username</ion-label>
+      <ion-input
+        type="text"
+        [(ngModel)]="username"
+        name="username"
+        aria-label="username"
+        required
+      ></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Email</ion-label>
+      <ion-input
+        type="email"
+        [(ngModel)]="email"
+        name="email"
+        aria-label="email"
+        required
+      ></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Password</ion-label>
+      <ion-input
+        type="password"
+        [(ngModel)]="password"
+        name="password"
+        aria-label="password"
+        required
+      ></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Password Confirmation</ion-label>
+      <ion-input
+        type="password"
+        [(ngModel)]="password_confirmation"
+        name="password_confirmation"
+        aria-label="confirm_password"
+        required
+      ></ion-input>
+    </ion-item>
+
+    <ion-button type="submit" expand="block">Signup</ion-button>
+  </form>
+</ion-content>
