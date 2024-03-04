@@ -15,8 +15,8 @@ import { HttpClientModule } from '@angular/common/http';
     FormsModule,
     IonicModule,
     HttpClientModule,
-    SignupPageRoutingModule
+    SignupPageRoutingModule,
   ],
-  declarations: [SignupPage]
+  declarations: [SignupPage],
 })
 export class SignupPageModule {}

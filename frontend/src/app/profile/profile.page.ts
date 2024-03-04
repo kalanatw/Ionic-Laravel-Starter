@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../service/auth.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { ToastService } from '../service/toast.service';
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.page.html',
@@ -11,7 +12,8 @@ export class ProfilePage implements OnInit {
   constructor(
     private http: HttpClient,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private toastService: ToastService
   ) {}
 
   ngOnInit() {
@@ -19,6 +21,7 @@ export class ProfilePage implements OnInit {
     if (token) {
       this.loadProfileData();
     } else {
+      this.toastService.presentToast('Please login ..');
       this.router.navigate(['/login']);
     }
   }
@@ -46,10 +49,9 @@ export class ProfilePage implements OnInit {
           (response) => {
             this.userData = response.data.user;
             this.initialUserData = { ...this.userData };
-            console.log(this.userData.email);
           },
           (error) => {
-            console.error('Error loading profile data:', error);
+            this.toastService.presentToast('Error loading profile data');
           }
         );
     }
@@ -62,19 +64,17 @@ export class ProfilePage implements OnInit {
         Authorization: `Bearer ${token}`,
       });
 
-      // Send updated user data to the backend
       this.http
         .put<any>('http://127.0.0.1:8000/api/editUser', this.userData, {
           headers,
         })
         .subscribe(
           (response) => {
-            console.log('Changes saved:', response);
+            this.toastService.presentToast('Changes saved succesfully..');
             this.toggleEditMode();
-            this.setOpen(true);
           },
           (error) => {
-            console.error('Error saving changes:', error);
+            this.toastService.presentToast('Error saving changes:', error);
           }
         );
     }
@@ -83,5 +83,36 @@ export class ProfilePage implements OnInit {
     return (
       JSON.stringify(this.userData) !== JSON.stringify(this.initialUserData)
     );
+  }
+  onFileSelected(event: any) {
+    const file: File = event.target.files[0];
+    if (file) {
+      this.uploadImage(file);
+    }
+  }
+  uploadImage(file: File) {
+    const formData: FormData = new FormData();
+    formData.append('image', file, file.name);
+
+    const token = this.authService.getToken();
+    if (token) {
+      const headers = new HttpHeaders({
+        Authorization: `Bearer ${token}`,
+      });
+
+      this.http
+        .post<any>('http://127.0.0.1:8000/api/uploadProfileImage', formData, {
+          headers,
+        })
+        .subscribe(
+          (response) => {
+            // Update the profile image URL in userData
+            this.userData.profileImage = response.data.imageUrl;
+          },
+          (error) => {
+            console.error('Error uploading profile image:', error);
+          }
+        );
+    }
   }
 }

@@ -8,9 +8,20 @@
   <ion-content class="ion-padding">
     <form>
       <ion-item>
-        <ion-label class="profile-label">Profile Image</ion-label>
-        <ion-img [src]="userData.profileImage" class="profile-image"></ion-img>
+        <ion-label class="profile label">Profile Image</ion-label>
       </ion-item>
+      <ion-item>
+        <ion-img [src]="'/assets/profile.png'" class="profile image"></ion-img>
+      </ion-item>
+      <ion-item>
+        <input
+          type="file"
+          (change)="onFileSelected($event)"
+          accept="image/*"
+          aria-label="image"
+        />
+      </ion-item>
+
       <ion-item>
         <ion-label position="floating">Name</ion-label>
         <ion-input
@@ -29,15 +40,21 @@
           aria-label="email"
         ></ion-input>
       </ion-item>
-      <ion-button expand="block" color="primary" type="submit" (click)="saveChanges()"  [disabled]="!isDataChanged()">
+      <ion-button
+        expand="block"
+        color="primary"
+        type="submit"
+        (click)="saveChanges()"
+        [disabled]="!isDataChanged()"
+      >
         Save Changes
       </ion-button>
       <ion-toast
-    [isOpen]="isToastOpen"
-    message="Changes saved succesfully"
-    [duration]="5000"
-    (didDismiss)="setOpen(false)"
-  ></ion-toast>
+        [isOpen]="isToastOpen"
+        message="Changes saved succesfully"
+        [duration]="5000"
+        (didDismiss)="setOpen(false)"
+      ></ion-toast>
     </form>
   </ion-content>
 </ion-content>

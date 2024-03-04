@@ -13,8 +13,8 @@ import { ForgotPasswordPage } from './forgot-password.page';
     CommonModule,
     FormsModule,
     IonicModule,
-    ForgotPasswordPageRoutingModule
+    ForgotPasswordPageRoutingModule,
   ],
-  declarations: [ForgotPasswordPage]
+  declarations: [ForgotPasswordPage],
 })
 export class ForgotPasswordPageModule {}
